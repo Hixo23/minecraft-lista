@@ -11,7 +11,7 @@ const getAllServers = async () => {
 export const ServerList = async () => {
   const servers = await getAllServers();
   return (
-    <div className="flex justify-around">
+    <div className="flex justify-evenly gap-4 lg:flex-row flex-col">
       {servers.map((server) => (
         <Server key={server.id} {...server} />
       ))}
