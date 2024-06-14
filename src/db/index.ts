@@ -1,13 +1,12 @@
+import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Client } from "pg";
 
-async () => {
-  const client = new Client({
-    connectionString: "postgres://user:password@host:port/db",
-  });
+config({ path: ".env.local" });
 
-  await client.connect();
-  const db = drizzle(client);
+const client = new Client({
+  connectionString: process.env.POSTGRES_URL!,
+});
 
-  return db;
-};
+client.connect();
+export const db = drizzle(client);
