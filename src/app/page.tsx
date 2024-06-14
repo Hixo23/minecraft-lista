@@ -1,5 +1,7 @@
 import { db } from "@/db";
 import { serverTable } from "@/db/schema";
+import { Button } from "@nextui-org/button";
+import { Chip } from "@nextui-org/chip";
 
 const getAllServers = async () => {
   "use server";
@@ -9,9 +11,5 @@ const getAllServers = async () => {
 
 export default async function Home() {
   const servers = await getAllServers();
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {JSON.stringify(servers)}
-    </main>
-  );
+  return <main className=""></main>;
 }
