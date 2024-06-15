@@ -5,7 +5,7 @@ import { Client } from "pg";
 config({ path: ".env.local" });
 
 const client = new Client({
-  connectionString: process.env.POSTGRES_URL!,
+  connectionString: process.env.AUTH_DRIZZLE_URL!,
 });
 
 client.connect();
