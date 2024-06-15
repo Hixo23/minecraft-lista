@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Navbar } from "@/components/UI/Navbar/Navbar";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+const font = localFont({
+  src: "../../public/fonts/Minecraft.ttf",
+  weight: "400px",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={poppins.className}>
+      <body className={font.className}>
         <Providers>
           <Navbar />
           {children}

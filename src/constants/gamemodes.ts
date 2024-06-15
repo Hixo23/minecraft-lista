@@ -1,0 +1,15 @@
+export const gamemodes = [
+  "Survival",
+  "BedWars",
+  "SkyWars",
+  "UHC",
+  "Creative",
+  "Survival + Gildie",
+  "Practice",
+  "BoxPVP",
+  "Lifesteal",
+  "Anarchia",
+  "Megadrop",
+  "EasyHC",
+  "FreeBuild",
+];

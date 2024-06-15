@@ -18,6 +18,10 @@ export const Navbar = () => {
           Serwery-MC
         </Link>
       )}
+      <nav className="flex gap-4">
+        <Link href="/add">Dodaj serwer</Link>
+        <Link href="/random">Losowy serwer</Link>
+      </nav>
       {data?.user ? (
         <Profile user={data.user} />
       ) : (
