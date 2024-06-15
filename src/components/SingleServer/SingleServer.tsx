@@ -5,6 +5,7 @@ type Props = {
   address: string;
   versions: string;
   description: string | null;
+  userId: string;
 };
 
 const getServerInformations = async (address: string) => {
@@ -14,7 +15,13 @@ const getServerInformations = async (address: string) => {
   return await response.json();
 };
 
-export const Server = async ({ id, address, versions, description }: Props) => {
+export const Server = async ({
+  id,
+  address,
+  versions,
+  description,
+  userId,
+}: Props) => {
   const serverInformations = await getServerInformations(address);
   return (
     <div className="w-full border-2 rounded-lg p-2 lg:p-4 flex gap-4 items-center font-bold">

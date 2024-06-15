@@ -10,6 +10,9 @@ import { AdapterAccount } from "next-auth/adapters";
 
 export const serverTable = pgTable("servers", {
   id: text("id").primaryKey().notNull(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   address: text("address").notNull().unique(),
   versions: text("versions").notNull(),
   description: text("description"),
