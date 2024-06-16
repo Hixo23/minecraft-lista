@@ -45,3 +45,14 @@ export const addServerAction = async (
   });
   return redirect("/");
 };
+
+export const getServerInformations = async (address: string) => {
+  const response = await fetch(`https://api.mcsrvstat.us/3/${address}`);
+  if (!response.ok) return;
+
+  const json = await response.json();
+
+  if (!json.debug.srv) return;
+
+  return json;
+};

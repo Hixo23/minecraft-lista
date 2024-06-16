@@ -1,3 +1,4 @@
+import { getServerInformations } from "@/actions/server";
 import Image from "next/image";
 
 type Props = {
@@ -6,17 +7,6 @@ type Props = {
   versions: string;
   description: string | null;
   userId: string;
-};
-
-const getServerInformations = async (address: string) => {
-  const response = await fetch(`https://api.mcsrvstat.us/3/${address}`);
-  if (!response.ok) return;
-
-  const json = await response.json();
-
-  if (!json.debug.srv) return;
-
-  return json;
 };
 
 export const Server = async ({
