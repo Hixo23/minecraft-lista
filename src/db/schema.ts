@@ -14,7 +14,9 @@ export const serverTable = pgTable("servers", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   address: text("address").notNull().unique(),
+  port: integer("port").notNull(),
   versions: text("versions").notNull(),
+  gamemodes: text("gamemodes"),
   description: text("description"),
 });
 

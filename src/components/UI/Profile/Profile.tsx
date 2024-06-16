@@ -3,23 +3,26 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  User as UserComponent,
 } from "@nextui-org/react";
-import { User } from "next-auth";
-import { useSession } from "next-auth/react";
+import { type User } from "next-auth";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 type Props = {
   user: User;
 };
 
 export const Profile = ({ user }: Props) => {
-  const { data } = useSession();
   return (
     <Dropdown>
-      <DropdownTrigger>
-        <p>{user?.name}</p>
+      <DropdownTrigger className="flex gap-4 items-center cursor-pointer">
+        <UserComponent name={user.name} avatarProps={{ src: user.image! }} />
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem key="logout">Wyloguj sie</DropdownItem>
+        <DropdownItem onClick={() => signOut()} key="logout">
+          Wyloguj sie
+        </DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );
