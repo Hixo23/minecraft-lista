@@ -11,6 +11,7 @@ export const CreateServerForm = () => {
   const [selectedVersions, setSelectedVersions] = useState<Set<string>>(
     new Set([])
   );
+
   const [selectedGamemodes, setSelectedGamemodes] = useState<Set<string>>(
     new Set([])
   );

@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={font.className}>
+      <body className={`${font.className} overflow-y-hidden`}>
         <Providers>
           <Navbar />
           {children}

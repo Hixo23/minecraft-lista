@@ -12,7 +12,11 @@ const getServerInformations = async (address: string) => {
   const response = await fetch(`https://api.mcsrvstat.us/3/${address}`);
   if (!response.ok) return;
 
-  return await response.json();
+  const json = await response.json();
+
+  if (!json.debug.srv) return;
+
+  return json;
 };
 
 export const Server = async ({
@@ -23,6 +27,8 @@ export const Server = async ({
   userId,
 }: Props) => {
   const serverInformations = await getServerInformations(address);
+
+  if (!serverInformations) return;
   return (
     <div className="w-full border-2 rounded-lg p-2 lg:p-4 flex gap-4 items-center font-bold">
       <Image

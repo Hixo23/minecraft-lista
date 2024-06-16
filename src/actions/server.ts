@@ -25,6 +25,8 @@ export const addServerAction = async (
 
   if (!serverAddress || typeof serverAddress !== "string")
     return { error: "Bledny adres ip" };
+
+  if (!serverAddress.includes(".")) return { error: "Bledny adres ip" };
   if (!serverPort || typeof +serverPort !== "number")
     return { error: "Bledny port" };
   if (typeof serverDescription !== "string")
