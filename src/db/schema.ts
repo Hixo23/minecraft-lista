@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -15,8 +16,8 @@ export const serverTable = pgTable("servers", {
     .references(() => users.id, { onDelete: "cascade" }),
   address: text("address").notNull().unique(),
   port: integer("port").notNull(),
-  versions: text("versions").notNull(),
-  gamemodes: text("gamemodes"),
+  versions: text("version").array(),
+  gamemodes: text("gamemode").array(),
   description: text("description"),
 });
 
