@@ -5,22 +5,6 @@ import { ActionResult } from "@/components/UI/Form";
 import { db } from "@/db";
 import { serverTable } from "@/db/schema";
 import { redirect } from "next/navigation";
-import { z } from "zod";
-
-const serverSchema = z.object({
-  serverAddress: z
-    .string()
-    .min(2, { message: "Adres serwera musi miec wiecej niz 2 znaki" }),
-  serverPort: z
-    .number()
-    .min(1, { message: "Port serwera musi byc wiekszy niz 1" }),
-  gamemodes: z
-    .array(z.string().min(1))
-    .min(1, { message: "Musisz wybrac minimum jeden tryb gry" }),
-  versions: z
-    .array(z.string().min(1))
-    .min(1, { message: "Musisz wybrac minimum jedna wersje serwera" }),
-});
 
 export const addServerAction = async (
   _: any,
