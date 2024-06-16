@@ -1,13 +1,10 @@
-"use client";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+const AddLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await auth();
 
-const AddLayout = ({ children }: { children: React.ReactNode }) => {
-  const { data } = useSession();
-  const router = useRouter();
-
-  //   if (!data?.user?.id) return router.push("/");
+  if (!session?.user) redirect("/");
   return <>{children}</>;
 };
 
