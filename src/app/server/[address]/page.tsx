@@ -1,8 +1,7 @@
-import Image from "next/image";
-import CopyIcon from "../../../../public/copy.png";
-import { Button, Chip } from "@nextui-org/react";
+import { Chip } from "@nextui-org/react";
 import { getServer, getServerInformations } from "@/actions/server";
 import { redirect } from "next/navigation";
+import { CopyButton } from "@/components/UI/CopyButton/CopyButton";
 
 type Props = {
   params: {
@@ -20,15 +19,7 @@ const ServerPage = async ({ params }: Props) => {
       <div className="flex flex-col items-start gap-24">
         <div className="flex items-center gap-4 h-24">
           <h1 className="text-3xl">{params.address}</h1>
-          <Button color="default">
-            <Image
-              width={32}
-              height={32}
-              src={CopyIcon}
-              className="p-1 invert"
-              alt="Copy button"
-            />
-          </Button>
+          <CopyButton stringToCopy={params.address} />
         </div>
         <div className="flex flex-col gap-12 p-12 rounded-lg border-2 bg-[#1f1f1f]">
           <p className="text-2xl">Informacje o serwerze</p>
@@ -58,17 +49,17 @@ const ServerPage = async ({ params }: Props) => {
         </div>
       </div>
       <div className="flex flex-col items-start gap-24">
-        <div className="flex flex-col gap-4 lg:w-[1200px] p-12 rounded-lg border-2 bg-[#1f1f1f]">
+        <div className="flex flex-col gap-4 lg:w-[800px] p-12 rounded-lg border-2 bg-[#1f1f1f]">
           {serverDatabaseInformations[0].description && (
             <>
               <p className="text-2xl">Opis:</p>
-              <span className="text-2xl">
+              <span className="text-2xl text-wrap">
                 {serverDatabaseInformations[0].description}
               </span>
             </>
           )}
         </div>
-        <div className="flex flex-col lg:w-[1200px] p-12 rounded-lg border-2 bg-[#1f1f1f]">
+        <div className="flex flex-col lg:w-[800px] p-12 rounded-lg border-2 bg-[#1f1f1f]">
           <div className="flex flex-col gap-4">
             <p className="text-2xl">Motd:</p>
             <div
