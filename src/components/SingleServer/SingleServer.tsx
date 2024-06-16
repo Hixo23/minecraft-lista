@@ -1,5 +1,6 @@
 import { getServerInformations } from "@/actions/server";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   id: string;
@@ -31,19 +32,18 @@ export const Server = async ({
 
       <div className="flex flex-col gap-2 w-full">
         <div className="flex items-center text-wrap justify-between px-3">
-          <p>{address}</p>
+          <Link href={`/server/${address}`}>{address}</Link>
           <div className="flex items-center gap-2  h-11">
             <span className="w-4 h-4 rounded-full bg-green-600 animate-pulse"></span>
             <p>{serverInformations.players.online}</p>
           </div>
         </div>
-        <p className="flex flex-col gap-2 text-wrap items-center mb-4">
-          {serverInformations.motd.clean.map((motd: string) => (
-            <span className="" key={motd}>
-              {motd}
-            </span>
-          ))}
-        </p>
+        <div
+          className="text-center"
+          dangerouslySetInnerHTML={{
+            __html: serverInformations.motd.html.join("<br>"),
+          }}
+        ></div>
       </div>
     </div>
   );

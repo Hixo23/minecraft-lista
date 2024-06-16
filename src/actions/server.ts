@@ -4,6 +4,8 @@ import { auth } from "@/auth";
 import { ActionResult } from "@/components/UI/Form";
 import { db } from "@/db";
 import { serverTable } from "@/db/schema";
+import { eq } from "drizzle-orm";
+import { serial } from "drizzle-orm/pg-core";
 import { redirect } from "next/navigation";
 
 export const addServerAction = async (
@@ -12,12 +14,8 @@ export const addServerAction = async (
 ): Promise<ActionResult> => {
   const serverAddress = formData.get("address");
   const serverPort = formData.get("port");
-  const serverGamemodes = formData
-    .getAll("selectedGamemodes")
-    .map((gamemode) => gamemode);
-  const serverVersions = formData
-    .getAll("selectedVersions")
-    .map((version) => version);
+  const serverGamemodes = formData.getAll("selectedGamemodes");
+  const serverVersions = formData.getAll("selectedVersions");
   const serverDescription = formData.get("description");
 
   const session = await auth();
@@ -34,15 +32,21 @@ export const addServerAction = async (
       error: "Opis serwera nie jest tekstem",
     };
 
+  if (serverGamemodes.length <= 0)
+    return { error: "Musisz wybrać tryby gry swojego serwera" };
+  if (serverVersions.length <= 0)
+    return { error: "Musisz wybrać wersje swojego serwera" };
+
   await db.insert(serverTable).values({
-    userId: session?.user?.id,
-    address: serverAddress,
-    versions: serverVersions.join(", "),
     id: crypto.randomUUID(),
+    userId: session.user.id,
+    address: serverAddress,
     port: +serverPort,
-    gamemodes: serverGamemodes.join(", "),
-    description: serverDescription ? serverDescription : null,
+    versions: serverVersions,
+    gamemodes: serverGamemodes,
+    description: serverDescription || null,
   });
+
   return redirect("/");
 };
 
@@ -52,7 +56,16 @@ export const getServerInformations = async (address: string) => {
 
   const json = await response.json();
 
-  if (!json.debug.srv) return;
+  if (!json.debug.ping) return;
 
   return json;
+};
+
+export const getServer = async (address: string) => {
+  const server = await db
+    .select()
+    .from(serverTable)
+    .where(eq(serverTable.address, address));
+  if (!server) return;
+  return server;
 };
