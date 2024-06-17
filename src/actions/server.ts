@@ -1,15 +1,15 @@
 "use server";
 
+import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { ActionResult } from "@/components/UI/Form";
+import { type ActionResult } from "@/components/UI/Form";
 import { db } from "@/db";
 import { serverTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { serial } from "drizzle-orm/pg-core";
-import { redirect } from "next/navigation";
+import { type ServerInformations } from "@/types/types";
 
 export const addServerAction = async (
-  _: any,
+  _: unknown,
   formData: FormData
 ): Promise<ActionResult> => {
   const serverAddress = formData.get("address");
@@ -25,7 +25,7 @@ export const addServerAction = async (
     return { error: "Bledny adres ip" };
 
   if (!serverAddress.includes(".")) return { error: "Bledny adres ip" };
-  if (!serverPort || typeof +serverPort !== "number")
+  if (!serverPort || typeof Number(serverPort) !== "number")
     return { error: "Bledny port" };
   if (typeof serverDescription !== "string")
     return {
@@ -41,7 +41,7 @@ export const addServerAction = async (
     id: crypto.randomUUID(),
     userId: session.user.id,
     address: serverAddress,
-    port: +serverPort,
+    port: Number(serverPort),
     versions: serverVersions,
     gamemodes: serverGamemodes,
     description: serverDescription || null,
@@ -50,22 +50,22 @@ export const addServerAction = async (
   return redirect("/");
 };
 
-export const getServerInformations = async (address: string) => {
+export const getServerInformations = async (address: string): Promise<ServerInformations> => {
   const response = await fetch(`https://api.mcsrvstat.us/3/${address}`);
-  if (!response.ok) return;
+  if (!response.ok) throw new Error("Error");
 
-  const json = await response.json();
+  const json = await response.json() as ServerInformations;
 
-  if (!json.debug.ping) return;
+  if (!json.debug.ping) throw new Error("Server is offline or it doesn't exists!");
 
   return json;
 };
 
-export const getServer = async (address: string) => {
+export const getServer = async (address: string)=> {
   const server = await db
     .select()
     .from(serverTable)
     .where(eq(serverTable.address, address));
-  if (!server) return;
+  if (!server[0].id) return;
   return server;
 };
