@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { serverTable } from "@/db/schema";
-import { Server } from "../SingleServer/SingleServer";
+import { Server } from "../SingleServer/single-server";
 
 const getAllServers = async () => {
   "use server";
