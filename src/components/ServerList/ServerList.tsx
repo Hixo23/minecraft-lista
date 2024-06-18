@@ -1,9 +1,9 @@
-import { db } from "@/db";
-import { serverTable } from "@/db/schema";
-import { Server } from "../SingleServer/single-server";
+import { db } from '@/db';
+import { serverTable } from '@/db/schema';
+import { SingleServer } from '../SingleServer/SingleServer';
 
 const getAllServers = async () => {
-  "use server";
+  'use server';
 
   return await db.select().from(serverTable);
 };
@@ -13,7 +13,7 @@ export const ServerList = async () => {
   return (
     <div className="flex justify-evenly gap-4 lg:flex-row flex-col">
       {servers.map((server) => (
-        <Server key={server.id} {...server} />
+        <SingleServer key={server.id} {...server} />
       ))}
     </div>
   );

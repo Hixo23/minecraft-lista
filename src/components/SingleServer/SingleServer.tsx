@@ -1,18 +1,16 @@
-import Image from "next/image";
-import Link from "next/link";
-import { getServerInformations } from "@/actions/server";
+import Image from 'next/image';
+import Link from 'next/link';
+import { getServerInformations } from '@/actions/server';
 
 interface ServerProps {
   id: string;
   address: string;
   versions: string;
   description: string | null;
-  userId: string; 
+  userId: string;
 }
 
-export const Server = async ({
-  address,
-}: ServerProps) => {
+export const SingleServer = async ({ address }: ServerProps) => {
   const serverInformations = await getServerInformations(address);
 
   if (!serverInformations.ip) return;
@@ -23,7 +21,7 @@ export const Server = async ({
         className="h-16 w-16 hidden md:block"
         height={64}
         src={serverInformations.icon}
-        alt={`${address  } icon`}
+        alt={`${address} icon`}
       />
 
       <div className="flex flex-col gap-2 w-full">
@@ -37,7 +35,7 @@ export const Server = async ({
         <div
           className="text-center"
           dangerouslySetInnerHTML={{
-            __html: serverInformations.motd.html.join("<br>"),
+            __html: serverInformations.motd.html.join('<br>'),
           }}
         ></div>
       </div>
