@@ -1,17 +1,11 @@
-import { db } from '@/db';
-import { serverTable } from '@/db/schema';
+/* eslint-disable react/react-in-jsx-scope */
 import { SingleServer } from '../SingleServer/SingleServer';
-
-const getAllServers = async () => {
-  'use server';
-
-  return await db.select().from(serverTable);
-};
+import { getAllServers } from '@/actions/server';
 
 export const ServerList = async () => {
   const servers = await getAllServers();
   return (
-    <div className="flex justify-evenly gap-4 lg:flex-row flex-col">
+    <div className="flex flex-col justify-evenly gap-4 lg:flex-row">
       {servers.map((server) => (
         <SingleServer key={server.id} {...server} />
       ))}

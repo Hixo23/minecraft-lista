@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 "use client";
 
 import { gamemodes } from "@/constants/gamemodes";
@@ -24,8 +25,8 @@ export const CreateServerForm = () => {
   };
 
   return (
-    <Form action={addServerAction} className="w-1/2 flex flex-col gap-8">
-      <div className="flex flex-col gap-2 w-full">
+    <Form action={addServerAction} className="flex w-1/2 flex-col gap-8">
+      <div className="flex w-full flex-col gap-2">
         <label htmlFor="address">Adres serwera</label>
         <Input
           placeholder="Podaj adres ip swojego serwera"
@@ -34,7 +35,7 @@ export const CreateServerForm = () => {
           type="text"
         />
       </div>
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex w-full flex-col gap-2">
         <label htmlFor="port">Port</label>
         <Input
           defaultValue="25565"
@@ -44,7 +45,7 @@ export const CreateServerForm = () => {
           type="number"
         />
       </div>
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex w-full flex-col gap-2">
         <label htmlFor="description">Opis serwera</label>
         <Input
           id="description"
@@ -53,7 +54,7 @@ export const CreateServerForm = () => {
           type="text"
         />
       </div>
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex w-full flex-col gap-2">
         <Select
           selectionMode="multiple"
           selectedKeys={selectedVersions}
@@ -67,7 +68,7 @@ export const CreateServerForm = () => {
           })}
         </Select>
       </div>
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex w-full flex-col gap-2">
         <Select
           selectionMode="multiple"
           selectedKeys={selectedGamemodes}
